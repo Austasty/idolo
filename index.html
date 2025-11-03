@@ -9,67 +9,178 @@
     <meta name="twitter:site" content="pitchfoot"> <!-- Replace with your X handle -->
     <meta name="twitter:title" content="Saka Portfolio Video">
     <meta name="twitter:description" content="Watch my latest work!">
-    <meta name="twitter:image" content="https://port-njjc.onrender.com/thumbnail.jpeg"> <!-- Upload a proper large portrait thumbnail -->
+    <meta name="twitter:image" content="https://port-njjc.onrender.com/thumbnail.jpeg"> <!-- Absolute URL -->
     <meta name="twitter:player" content="https://port-njjc.onrender.com/"> <!-- Page URL -->
-    <meta name="twitter:player:stream" content="https://port-njjc.onrender.com/portfolio-video.mp4"> <!-- Direct video URL; ensure file exists -->
+    <meta name="twitter:player:stream" content="https://port-njjc.onrender.com/20251001_104912.mp4"> <!-- Direct video URL -->
     <meta name="twitter:player:width" content="720"> <!-- Portrait example; match video width -->
-    <meta name="twitter:player:height" content="1280"> <!-- Portrait example; match video height -->
+    <meta name="twitter:player:height" content="1280">
     
     <title>Saka Portfolio Video</title>
     <style>
         body {
             margin: 0;
             background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            color: #fff;
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            min-height: 100vh;
+        }
+        .top-label {
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        h1 {
+            font-size: 2.5em;
+            text-transform: uppercase;
+            margin: 0;
+            text-align: center;
+            background: linear-gradient(to right, #a855f7, #3b82f6); /* Approximate purple-blue gradient for title */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p {
+            font-size: 1.2em;
+            text-align: center;
+            margin: 10px 0 20px;
+            opacity: 0.9;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
         }
         video {
             width: 100%;
-            max-width: 800px;
             height: auto;
-            border: 2px solid #fff;
-            border-radius: 8px;
+            display: block;
         }
-        #redirect-message {
-            display: none;
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+        }
+        .play-button {
+            background: #fff;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: #000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .duration {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
             color: #fff;
-            text-align: center;
-            margin-top: 10px;
+            font-size: 1em;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .cta-button {
+            background: linear-gradient(to right, #a855f7, #3b82f6); /* Matching purple-blue theme */
+            color: #fff;
+            border: none;
+            border-radius: 9999px;
+            padding: 12px 24px;
             font-size: 1.2em;
+            margin-top: 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .cta-button:hover {
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            p {
+                font-size: 1em;
+            }
+            .play-button {
+                width: 60px;
+                height: 60px;
+                font-size: 30px;
+            }
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
         }
     </style>
 </head>
 <body>
-    <video autoplay muted controls playsinline>
-        <source src="port\20251001_104912.mp4" type="video/mp4">
-        Your browser doesn't support video playback. <a href="https://your-portfolio-site.com">View my portfolio</a>.
-    </video>
-    <div id="redirect-message">Redirecting to portfolio in <span id="countdown">3</span> seconds...</div>
+    <div class="top-label">Portfolio Showcase with Saka</div>
+    <h1>Saka Portfolio Video</h1>
+    <p>Watch my latest work!</p>
+    <div class="video-container">
+        <video id="video" playsinline poster="https://port-njjc.onrender.com/thumbnail.jpeg">
+            <source src="https://port-njjc.onrender.com/20251001_104912.mp4" type="video/mp4">
+            Your browser doesn't support video playback. <a href="portfolio.html">View my portfolio</a>.
+        </video>
+        <div class="play-overlay" id="play-overlay">
+            <div class="play-button">&#9654;</div>
+        </div>
+        <div class="duration" id="duration">0:00</div>
+    </div>
+    <button class="cta-button" onclick="window.location.href = 'portfolio.html';">View Portfolio</button>
+
     <script>
-        // Only redirect if not in an iframe (for X embed compatibility)
-        if (window.top === window.self) {
-            const video = document.querySelector('video');
-            const redirectMessage = document.getElementById('redirect-message');
-            const countdownElement = document.getElementById('countdown');
+        const video = document.getElementById('video');
+        const playOverlay = document.getElementById('play-overlay');
+        const durationElem = document.getElementById('duration');
 
-            video.addEventListener('ended', function() {
-                redirectMessage.style.display = 'block';
-                let seconds = 3;
-                countdownElement.textContent = seconds;
+        // Load duration
+        video.addEventListener('loadedmetadata', function() {
+            const duration = video.duration;
+            const minutes = Math.floor(duration / 60);
+            const seconds = Math.floor(duration % 60).toString().padStart(2, '0');
+            durationElem.textContent = `${minutes}:${seconds}`;
+        });
 
-                const countdown = setInterval(function() {
-                    seconds--;
-                    countdownElement.textContent = seconds;
-                    if (seconds <= 0) {
-                        clearInterval(countdown);
-                        window.location.href = 'https://your-portfolio-site.com'; // Actual portfolio URL
-                    }
-                }, 1000);
-            });
-        }
+        // Play on overlay click
+        playOverlay.addEventListener('click', function() {
+            video.play();
+            video.controls = true;
+            playOverlay.style.display = 'none';
+        });
+
+        // Optional: Redirect on video end (from original code, adapted)
+        video.addEventListener('ended', function() {
+            let seconds = 3;
+            // You could add a message here if desired, but keeping it simple to match the ad style
+            const countdown = setInterval(function() {
+                seconds--;
+                if (seconds <= 0) {
+                    clearInterval(countdown);
+                    window.location.href = 'portfolio.html'; // Replace with actual portfolio URL
+                }
+            }, 1000);
+        });
     </script>
 </body>
 </html>
