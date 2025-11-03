@@ -25,31 +25,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             box-sizing: border-box;
             min-height: 100vh;
-        }
-        .top-label {
-            font-size: 1em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
-        h1 {
-            font-size: 2.5em;
-            text-transform: uppercase;
-            margin: 0;
-            text-align: center;
-            background: linear-gradient(to right, #a855f7, #3b82f6); /* Approximate purple-blue gradient for title */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        p {
-            font-size: 1.2em;
-            text-align: center;
-            margin: 10px 0 20px;
-            opacity: 0.9;
         }
         .video-container {
             position: relative;
@@ -98,47 +77,18 @@
             padding: 4px 8px;
             border-radius: 4px;
         }
-        .cta-button {
-            background: linear-gradient(to right, #a855f7, #3b82f6); /* Matching purple-blue theme */
-            color: #fff;
-            border: none;
-            border-radius: 9999px;
-            padding: 12px 24px;
-            font-size: 1.2em;
-            margin-top: 20px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-        .cta-button:hover {
-            opacity: 0.9;
-        }
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-            }
-            p {
-                font-size: 1em;
-            }
             .play-button {
                 width: 60px;
                 height: 60px;
                 font-size: 30px;
             }
-            .cta-button {
-                padding: 10px 20px;
-                font-size: 1em;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="top-label">Portfolio Showcase with Saka</div>
-    <h1>Saka Portfolio Video</h1>
-    <p>Watch my latest work!</p>
     <div class="video-container">
-        <video id="video" playsinline poster="https://port-njjc.onrender.com/thumbnail.jpeg">
+        <video id="video" playsinline poster="https://port-njjc.onrender.com/thumbnail.jpeg" preload="auto">
             <source src="https://port-njjc.onrender.com/20251001_104912.mp4" type="video/mp4">
             Your browser doesn't support video playback. <a href="portfolio.html">View my portfolio</a>.
         </video>
@@ -147,7 +97,6 @@
         </div>
         <div class="duration" id="duration">0:00</div>
     </div>
-    <button class="cta-button" onclick="window.location.href = 'portfolio.html';">View Portfolio</button>
 
     <script>
         const video = document.getElementById('video');
@@ -169,10 +118,9 @@
             playOverlay.style.display = 'none';
         });
 
-        // Optional: Redirect on video end (from original code, adapted)
+        // Optional: Redirect on video end
         video.addEventListener('ended', function() {
             let seconds = 3;
-            // You could add a message here if desired, but keeping it simple to match the ad style
             const countdown = setInterval(function() {
                 seconds--;
                 if (seconds <= 0) {
