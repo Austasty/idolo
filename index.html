@@ -4,14 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- Minimal Twitter Player Card -->
+  <!-- Twitter Player Card -->
   <meta name="twitter:card" content="player" />
-  <meta name="twitter:title" content="saka " />
+  <meta name="twitter:title" content=" " />
   <meta name="twitter:description" content=" " />
   <meta name="twitter:image" content="https://res.cloudinary.com/duave4tmr/image/upload/saka_qwknfo.jpg" />
   <meta name="twitter:player" content="https://ima-3cg5.onrender.com/" />
   <meta name="twitter:player:width" content="360" />
   <meta name="twitter:player:height" content="640" />
+  <meta name="twitter:site" content="@yourhandle" /> <!-- optional but helps Twitter verify -->
 
   <title>Portfolio Video</title>
   <style>
@@ -31,7 +32,7 @@
         .video-container {
             position: relative;
             width: 100%;
-            max-width: 720px;
+            max-width: 360px; /* match Twitter card width */
             background: #000;
             border-radius: 8px;
             overflow: hidden;
@@ -40,6 +41,7 @@
             width: 100%;
             height: auto;
             display: block;
+            aspect-ratio: 9 / 16; /* ensures portrait ratio */
         }
         .play-overlay {
             position: absolute;
@@ -86,7 +88,8 @@
 </head>
 <body>
     <div class="video-container">
-        <video autoplay muted playsinline controls poster="https://ima-3cg5.onrender.com/port/portrait-thumb.jpg">
+        <!-- added id to video for JS to find it -->
+        <video id="video" autoplay muted playsinline controls poster="https://res.cloudinary.com/duave4tmr/image/upload/saka_qwknfo.jpg">
             <source src="https://ima-3cg5.onrender.com/20251001_104912.mp4" type="video/mp4" />
             Your browser doesn't support video playback.
          </video>
@@ -95,6 +98,7 @@
         </div>
         <div class="duration" id="duration">0:00</div>
     </div>
+
     <script>
         const video = document.getElementById('video');
         const playOverlay = document.getElementById('play-overlay');
@@ -115,15 +119,10 @@
             playOverlay.style.display = 'none';
         });
 
-        // Optional: Redirect on video end
+        // Optional redirect after playback
         video.addEventListener('ended', function() {
-            let seconds = 3;
-            const countdown = setInterval(function() {
-                seconds--;
-                if (seconds <= 0) {
-                    clearInterval(countdown);
-                    window.location.href = 'portfolio.html'; // Replace with actual portfolio URL
-                }
+            setTimeout(() => {
+                window.location.href = 'portfolio.html'; // Replace with your portfolio link
             }, 1000);
         });
     </script>
